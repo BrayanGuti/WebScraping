@@ -77,7 +77,8 @@ def obtener_metricas(url):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    service = Service('/home/sergio/.cache/selenium/chromedriver/linux64/129.0.6668.100/chromedriver')  # Especifica la ruta correcta a chromedriver
+    path_chromedriver = find_chromedriver()
+    service = Service(path_chromedriver)  # Especifica la ruta correcta a chromedriver
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get(url)
     
