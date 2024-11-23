@@ -3,11 +3,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from datetime import datetime
 import pandas as pd
 import os
 import time
+import subprocess
 
 # Nombre del archivo CSV
 csv_file = "banana_gun_metrics_extended.csv"
@@ -18,9 +21,35 @@ def calcular_cambio(data, intervalo):
         return ((data[-1] - data[-intervalo]) / data[-intervalo]) * 100
     return None
 
+def find_chromedriver():
+    try:
+        # Ejecutar el comando y capturar la salida
+        result = subprocess.run(['find', '/', '-name', 'chromedriver'], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+        
+        # Obtener las rutas de la salida
+        paths = result.stdout.strip().split('\n')
+        
+        # Filtrar y devolver la primera ruta válida
+        for path in paths:
+            if os.path.isfile(path) and os.access(path, os.X_OK):
+                return path
+        
+        # Si no se encuentra una ruta válida, devolver None
+        return None
+    except Exception as e:
+        print(f"Error al ejecutar el comando: {e}")
+        return None
+
 # Función para obtener el precio de Banana Gun usando Selenium
 def obtener_precio(url):
-    driver = webdriver.Chrome()  # Asegúrate de tener el driver adecuado instalado
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Ejecutar Chrome en modo headless
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    path_chromedriver = find_chromedriver()
+    service = Service(path_chromedriver)  # Especifica la ruta correcta a chromedriver
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get(url)
     
     try:
@@ -43,7 +72,13 @@ def obtener_precio(url):
 
 # Función para obtener las métricas principales usando Selenium
 def obtener_metricas(url):
-    driver = webdriver.Chrome()  # Asegúrate de tener el driver adecuado instalado
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Ejecutar Chrome en modo headless
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    service = Service('/home/sergio/.cache/selenium/chromedriver/linux64/129.0.6668.100/chromedriver')  # Especifica la ruta correcta a chromedriver
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get(url)
     
     try:
