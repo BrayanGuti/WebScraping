@@ -41,13 +41,12 @@ def find_chromedriver():
         return None
 
 # Función para obtener el precio de Banana Gun usando Selenium
-def obtener_precio(url):
+def obtener_precio(url, path_chromedriver):
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Ejecutar Chrome en modo headless
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    path_chromedriver = find_chromedriver()
     service = Service(path_chromedriver)  # Especifica la ruta correcta a chromedriver
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get(url)
@@ -71,13 +70,12 @@ def obtener_precio(url):
         return None
 
 # Función para obtener las métricas principales usando Selenium
-def obtener_metricas(url):
+def obtener_metricas(url, path_chromedriver):
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Ejecutar Chrome en modo headless
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    path_chromedriver = find_chromedriver()
     service = Service(path_chromedriver)  # Especifica la ruta correcta a chromedriver
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get(url)
@@ -158,10 +156,12 @@ def guardar_csv(df, csv_file):
 # Función principal que orquesta todo el flujo
 def main():
     url = "https://coinmarketcap.com/currencies/banana-gun/"
-    
+
+    path_chromedriver = find_chromedriver()
+
     # Obtener el precio y las métricas
-    price = obtener_precio(url)
-    market_cap, volume, fdv = obtener_metricas(url)
+    price = obtener_precio(url, path_chromedriver)
+    market_cap, volume, fdv = obtener_metricas(url, path_chromedriver)
     
     if price is not None and market_cap is not None:
         # Cargar o crear el DataFrame
