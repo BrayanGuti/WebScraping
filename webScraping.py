@@ -11,6 +11,7 @@ import pandas as pd
 import os
 import time
 import subprocess
+import argparse
 
 # Nombre del archivo CSV
 csv_file = "banana_gun_metrics_extended.csv"
@@ -155,10 +156,13 @@ def guardar_csv(df, csv_file):
 
 # Función principal que orquesta todo el flujo
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('path_chromedriver', type=str)
+    args = parser.parse_args()
+    path_chromedriver = args.path_chromedriver
+
     url = "https://coinmarketcap.com/currencies/banana-gun/"
-
-    path_chromedriver = find_chromedriver()
-
+    
     # Obtener el precio y las métricas
     price = obtener_precio(url, path_chromedriver)
     market_cap, volume, fdv = obtener_metricas(url, path_chromedriver)
