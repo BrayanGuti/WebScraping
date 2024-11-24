@@ -1,2 +1,3 @@
 /venv
-banana_gun_metrics_extended.csv
+*.CSV
+    
