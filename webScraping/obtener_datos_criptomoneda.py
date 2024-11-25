@@ -13,7 +13,7 @@ def obtener_datos(url):
     try:
         # Esperar a que la página cargue completamente
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "WXGwg")))  # Esperar por el precio
-        time.sleep(7)  # Espera adicional para asegurar la carga completa de la página
+        time.sleep(12)  # Espera adicional para asegurar la carga completa de la página
 
         # Obtener el contenido de la página después de esperar
         soup = BeautifulSoup(driver.page_source, 'html.parser')

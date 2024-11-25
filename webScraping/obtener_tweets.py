@@ -71,7 +71,7 @@ def obtener_tweets_por_hashtag(hashtag, correo, telefono, contrasena):
         print("Botón de login presionado.")
 
         # Esperar a que la página cargue y cargar tweets
-        time.sleep(10)  # Ajusta el tiempo de espera si es necesario
+        time.sleep(180)  # Ajusta el tiempo de espera si es necesario
 
         # Aquí puedes agregar la lógica para extraer los tweets
         
@@ -85,6 +85,6 @@ def obtener_tweets_por_hashtag(hashtag, correo, telefono, contrasena):
         driver.quit()
 
 # Uso de la función
-tweets = obtener_tweets_por_hashtag("pepe", "Brag.8631@gmail.com", "Pepe2913269666", "MUjJj#tqLUNWo2*0Jto9nY%@pEEwREN#Z2TzkyIfqa1KR3mfuZ2&WMM@")
+tweets = obtener_tweets_por_hashtag("WLD", "Brag.8631@gmail.com", "Pepe2913269666", "MUjJj#tqLUNWo2*0Jto9nY%@pEEwREN#Z2TzkyIfqa1KR3mfuZ2&WMM@")
 for tweet in tweets:
     print(tweet)
