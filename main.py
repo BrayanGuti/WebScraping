@@ -7,7 +7,7 @@ import sys
 raiz = os.path.dirname(os.path.abspath(__file__))
 
 # Ruta al archivo que se va a ejecutar
-archivo = os.path.join(raiz, "webScraping.py")
+archivo = os.path.join(raiz, "actualizar_tabla.py")
 
 # Ruta al entorno virtual (usando la carpeta 'venv')
 venv_path = os.path.join(raiz, "venv", "Scripts" if sys.platform == "win32" else "bin", "activate")
