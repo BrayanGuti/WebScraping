@@ -1,26 +1,16 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def obtener_dominancia_btc():
-    # Configuración del navegador (headless para evitar abrir el navegador visualmente)
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--no-sandbox")
-    service = Service("ruta/a/chromedriver")  # Reemplaza con la ruta a tu chromedriver
+import time
 
-    # Inicializar Selenium WebDriver
-    driver = webdriver.Chrome()
-    
+def obtener_dominancia_btc(driver):
     try:
         # URL de la página
         url = "https://es.tradingview.com/symbols/BTC.D/"
         driver.get(url)
         
+        time.sleep(3)
         # Esperar explícitamente a que el valor esté visible en el DOM
         value_element = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "js-symbol-last"))
@@ -30,6 +20,6 @@ def obtener_dominancia_btc():
         value = value_element.text
         
         return value
-    finally:
-        driver.quit()
-
+    except Exception as e:
+        print("Error al obtener la dominancia de BTC:", e)
+        return None

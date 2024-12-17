@@ -1,4 +1,3 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -6,8 +5,7 @@ from bs4 import BeautifulSoup
 import time
 
 
-def obtener_datos(url):
-    driver = webdriver.Chrome()
+def obtener_datos(url, driver):
     driver.get(url)
     
     try:
@@ -28,10 +26,8 @@ def obtener_datos(url):
         volume = float(metrics[1].text.replace("$", "").replace("M", "").replace(",", "").replace("B", ""))
         fdv = float(metrics[2].text.replace("$", "").replace("M", "").replace(",", "").replace("B", ""))
         
-        driver.quit()
         return price, market_cap, volume, fdv
         
     except Exception as e:
         print(f"Error al obtener los datos: {e}")
-        driver.quit()
         return None, None, None, None
