@@ -1,5 +1,6 @@
 /venv
 *.CSV
 /__pycache__
-
+/metrics
+/mocks
 *.pkl

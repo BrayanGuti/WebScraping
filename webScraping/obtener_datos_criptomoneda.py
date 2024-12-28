@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import time
 
-
 def obtener_datos(url, driver):
     driver.get(url)
     

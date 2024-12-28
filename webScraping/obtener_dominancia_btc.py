@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 import time
 
 def obtener_dominancia_btc(driver):
@@ -18,7 +17,8 @@ def obtener_dominancia_btc(driver):
         
         # Obtener el valor del DOM
         value = value_element.text
-        
+        value = float(value.replace(",", "."))
+
         return value
     except Exception as e:
         print("Error al obtener la dominancia de BTC:", e)
